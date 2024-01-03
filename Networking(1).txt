@@ -1,0 +1,251 @@
+NETWORKING
+==========
+
+Networking is notning but providing connection/inter connection b/w two or more systems.
+
+
+
+N/W Devices:
+============
+
+1) Hub    : Point to point communication device. it will not give any acknowledgement.
+2) Switch : to transfer the data with in the same n/w. if id address not availiable it will                 convert in to MAC address and transfer the data. and it will give acknowledgement               also. 
+3) Router : same like switch only, but using router we can transfer in b/w diff n/w's also.
+
+
+NETWORKING LAYERS
+=================
+
+    tcp/ip                            OSI
+==============                 =====================
+
+                               7) application layer---> ftp,nfs,http(n/w services)
+                               6) presentation layer--> data presentation will be defined   
+ 7)                            5) session layer ------> login and logout 
+ 4)                            4) transport layer ----> PROTOCALS(TCP/UDP)
+ 3)                            3) n/w layer ----------> ping,traceroute,ARP,RARP
+ 2)                            2) Data link layer-----> switch,bridge
+ 1)                            1) physical layer -----> hub,repeater
+
+ARP (Adress resolution protocal)----> it will resolve IP-MAC
+RARP (Reverse adress resolution protocal)----> it will resolve MAC-IP
+
+IP CLASSIFICATION:
+==================
+
+calssificatiojn of ip's                           NET MASK
+-----------------------                          ---------
+High           1) class A ---> 0-127    ------- 255.0.0.0(255*255*255) 
+Medium         2) class B ---> 128-191  ------- 255.255.0.0(255*255)
+small          3) class C ---> 192-223  ------- 255.255.255.0(255)
+Multicasting   4) class D ---> 224-239  ------- 255.255.255.255
+R & D purpose  5) class E ---> 240-255  ------- R & D purpose.
+
+
+loop back address : 127
+broad cast address: 255
+
+gateway : gate way is an entrance point to enter into another n/w.
+=========
+
+
+NOTE : ipaddress length  ---> 32bit(logical address)
+       MAC address length---> 48bit(physical address)
+
+
+# hostname -----> it will display the hostname.
+
+# hostname vLearn ---> to assign hostname temp.
+
+# vi /etc/sysconfig/network
+
+hostname vLearn
+:wq!
+
+
+# service network restart
+
+
+
+
+How to assign ipaddress to ethernet/interface
+=============================================
+
+# ifconfig  eth0 ----> to check ip
+
+# ifconfig eth0 192.168.10.5
+           ---- ------------
+# ifup eth0
+
+# ifdown eth0
+
+
+
+# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+
+  DEVICE    eth0
+  ONBOOT    yes
+  BOOTPROTO sataic
+  IPADDRESS 192.168.10.5
+  NETMASK   255.255.255.0
+  
+:wq!
+
+# service network restart
+
+
+How to check and set ethernet/interface speed
+=============================================
+
+# mii-tool eth0
+
+# ethtool eth0
+
+
+How to change ethernet card speed
+=================================
+
+Types of duplex
+---------------
+1) simplex     -------> only visibility( signal)
+2) Half-duplex -------> one way commuinication(walky-talky)
+3) Full-duplex -------> Two way communication(mobile)
+
+# ethtool -s eth0 speed 1500 duplex half-duplex/full-duplex autonagotitation=ON
+
+# mii-tool -F eth0 1000base TX-HD/TX-FD
+
+
+* To change ethernet card speed perminently
+-------------------------------------------
+# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+
+ETHTOOL_OPTS = speed 1500 duplex half-duplex
+
+
+:wq!
+
+# service network restart
+
+How to add Interface to a router or gateway.
+============================================
+
+# route add -net 192.168.10.5 gw 192.168.10.9
+                 ------------    ------------
+                       |               |
+                    ethernet ip     Router ip
+ 
+ 
+          
+                      or
+
+# route add default gw 192.168.10.9 eth0
+
+Ping
+----
+To check system is up and running or not
+
+Note: It will use ICMP protocal
+-----
+
+# ping 192.168.10.5
+
+# ping -c 5 192.168.10.5
+
+
+
+
+Diff b/w tcp and udp protocal
+=============================
+
+TCP							UDP
+1) transmission control protocal 		1) user data gram protocal
+
+2) used slower connection			2) faster communication
+
+3) connection oreinted				3) connection less or wire less
+
+4) port no 6					4) port no 17
+
+# vi /etc/services -----> all port nos.
+
+# cat /etc/services | grep -i dns* ---> to find out the dns port no.
+
+# netstat -alutp | grep -i :80
+
+   -a all
+   -l listening
+   -u udp
+   -t tcp
+   -p port no
+   -r routing table information
+
+IP BONDING
+==========
+
+to provide HA ( high availiablity) and load balencing.
+
+# vi /etc/modprob.conf
+
+alias    bond0     bonding
+
+:wq!
+
+
+
+# vi /etc/sysconfig/network-scripts/ifcfg-bond0
+
+
+DEVICE = bond0
+ONBOOT = YES
+BOOTPROTO=NONE
+IPADDRESS=192.168.10.5
+NETMASK=255.255.255.0
+PRIMARY OPTION= eth0
+:wq!
+
+# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+
+
+DEVICE = eth0
+ONBOOT = YES
+BOOTPROTO=NONE
+MASTER= bond0
+SLAVE=YES
+:wq!
+
+# vi /etc/sysconfig/network-scripts/ifcfg-eth1
+
+
+DEVICE = eth1
+ONBOOT = YES
+BOOTPROTO=NONE
+MASTER= bond0
+SLAVE=YES
+:wq!
+
+# SERVICE NETWORK RESTART
+
+# ifup bond0
+
+# traceroute 192.168.10.5-----> it will display where n/w has been strucked.
+
+# tcpdump eth0 -------->It will check and capture the data(packets) from where it has been                         strucked.
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+  

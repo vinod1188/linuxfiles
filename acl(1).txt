@@ -1,0 +1,44 @@
+ACL's
+=====
+
+* ACL's is nothing but, to provide access on a file/dir for perticular users/groups ACL's will 
+be useful.
+
+
+
+
+# vi /etc/fstab
+
+/dev/sda5 /apps ext3 defaults,acl 0 0
+:wq!
+
+
+# mount -o acl,remount /dev/sda5
+
+
+# mount -o acl /dev/sda5 /apps
+
+# vi /etc/fstab
+
+/dev/sda5 /apps ext3 defaults,acl 0 0
+:wq!
+
+# mount -o remount,acl /dev/sda5
+
+# setfacl -m u:u5:rwx file1
+
+# ll file1
+
+-rw-r--r--+
+
+# getfacl file1
+
+# setfacl -m g:groupname:rwx file1 ---> to apply acl's on group
+
+# setfacl -m u:username,g:grp1:rwx file1
+
+# setfacl -x u:username file1
+
+# setfacl -b file1
+
+

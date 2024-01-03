@@ -1,0 +1,57 @@
+filter commands
+===============
+
+1) more------> to see the content page wise
+2) less------> same like more only. scrolling option not
+               work 
+3) head------> to see the top lines of a file
+4) tail------> to see the bottom lines of a file
+5) wc  ------> it will display no of line,word and charecter
+               count. 
+6) grep------> to search a string in a file
+
+# grep "vlearn"  file1
+
+# cat file1 | grep "vlearn"
+
+# cat file1 | grep -i "vlearn"
+
+# cat file1 | grep -n "vlearn"
+
+# cat file1 | grep -c "vlearn"
+   
+# cat file1 | grep -v "vlearn" 
+
+# cat file1 | grep  ^vlearn 
+
+# cat file1 | grep vlearn$
+
+7) sort------> to sort out the data
+
+# cat file1 | sort
+
+# cat file1 | sort -r
+
+8) uniq ------> to eleminate duplicates
+
+# cat file1 | uniq
+
+9) date -----> to check the system date and time.
+
+# date
+
+# date "+%d-%m-%y"
+
+
+
+10) clear----> to clear the screen.
+11) history--> to know the commands executed commands.
+12) history 10---> last 10 commands in history list.
+13) !!-----------> to execute just previous command.
+14)!14-----------> to execute 14th command in history list.
+15)history -c----> to clear the history.
+16) history -r --> to restore the history( only cache memory)
+17) who or w-----> it will list out the users connected to the server.
+18) whoami-------> to find out with which user we are connected to a server.
+
+

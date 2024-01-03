@@ -1,0 +1,173 @@
+tar and zip
+===========
+
+# tar - cvf f.tar f1 f2 f3
+
+
+# tar - tvf f.tar
+
+ it will tar all the files together(f.tar) and size will not reduce.
+
+# gzip f.tar
+ f.tar.gz will created and size will be compressed
+
+# gunzip f.tar.gz
+
+  f.tar will come
+
+# tar -xvf f.tar
+
+ files will be extracted.
+
+
+ FILE PERMISSIONS.
+===================
+
+Assigning permission in diff levels
+
+1) user/owner   (u)
+2) group  (g)
+3) others (o)
+
+
+
+ Permissions
+=============
+
+ permissions          file       dir
+
+ read ----(r)-(4)---  read        ll 
+ write----(w)-(2)--- modify     modify
+ xcute----(x)-(1)---   -          cd
+
+We can Appy permissions in 2 methods
+====================================
+
+1) symbolic method (r,w,x)
+2) numeric method or absolute method(4,2,1)
+
+1) symbolic method
+==================
+
+ + ------ add
+ - ------ remove
+ = ------ assigning
+
+
+# chmod u+x file1
+
+# chmod g+x file1 
+
+# chmod o+x file1
+
+
+# chmod o-x file1
+
+# chmod u+x,g+w,o-x file1
+
+# chmod u+rwx file1
+
+# chmod u=rwx,g=rwx,o=rwx file1
+
+# chmod a=rwx file1
+
+# chmod a-x file1
+
+
+file1
+=====
+u=rw
+g=rwx
+o=r
+rwx
+---
+-rw-rwxr--
+
+file types
+----------
+ - -----> normal
+ d -----> dir
+ l -----> link
+ c -----> charecter
+ b -----> block
+ s -----> socket
+
+
+Numeric method
+==============
+
+r=4
+w=2
+x=1
+
+file3
+=====
+u = rw =4+2=6
+g = rw =4+2=6
+o = r  =4
+
+
+-rw-rw-r--
+  6  6 4
+
+# chmod 664 file3
+
+# chmod 621 file3
+
+Full permissions for file and dir
+=================================
+
+file
+====
+666
+
+dir
+===
+777
+
+
+Default permisiions
+===================
+
+ Default permisiions=full permissions-umask value
+
+ umask=022
+
+ 
+ 666
+-022
+----
+ 644
+
+
+ 777
+-022
+----
+ 755
+
+# umask
+  022
+# umask 044 ----> temporary change
+
+# umask
+  044
+666-044=622
+777-044=744
+
+# umask 000
+
+# umask 777
+
+# vi /etc/profiles ----> perminent change
+
+ umask 044
+
+:wq!
+
+
+744
+7-1,4+2,4+1
+6 6 5
+
+
+

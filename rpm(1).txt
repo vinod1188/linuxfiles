@@ -1,0 +1,143 @@
+software management/package management
+======================================
+
+
+to manage(install/update/delete) packages or softwares is nothing but package management.
+
+
+we can manage packages in 2ways
+===============================
+1)rpm(redhat package manger up to RHEL 5)
+2)yum (yellow dog updater modified from rhel 5)
+
+
+diff b/w rpm and yum
+====================
+
+
+rpm                                                    yum
+---                                                    ---
+
+1) we need to install from packages location          1) we can install packages from any where
+2) we can't install multiple packages at a time.      2) we can install.
+3) we need to install dependency packages intially.   3) yum willtacke care of dependencies.
+
+
+how to install a package:
+=========================
+# rpm -ivh <package name>
+
+-i  ---> install
+-v  ---> verbose
+-h  ---> hash  
+
+# rpm -ivh vsftpd*
+
+how to check package installed or not
+-------------------------------------
+# rpm -qa | grep -i vsftpd*
+
+vsftpd-2.3-2.6-el5-i686.rpm
+
+vsftpd ---> package name
+2.3-------> pkg version
+2.6-------> release version
+el5-------> os version
+i686------> arch
+rpm-------> extension.
+
+# rpm -qip vsftpd* ---> pkg information
+# rpm -qc vsftpd* ----> pkg related config files
+# rpm -qd vsftpd* ----> documents
+# rpm -qf vsftpd* ----> pkg files
+# rpm -qR vsftpd* ----> pkg dendencies
+# rpm -uvh vsftpd* ---> to update pkgs
+# rpm -evh vsftpd* ---> uninstall pkg.
+# rpm -ivh vsftpd* --force ---> forcefull installation
+# rpm -ivh vsftpd* --nodeps ---> install pkg with out dependencies.
+
+
+YUM
+===
+
+* to overcome rpm disadvantages yum introduced.
+
+# /varlib/rpm ---->database
+
+How to create repository
+------------------------
+
+# mount /dev/dvd /media
+
+# cd /media
+media]# ll
+Packages
+
+# copy Packages to local machine.
+
+# cp -rvf * /venkat ---> copy packages to /venkat
+
+
+# rpm -ivh createrepo*
+
+it will ask for the dependecies, first we need to isntall dendencies.
+
+
+# createrepo -v /venkat ---> it will collect the metadata(data about the data)
+
+# cd /etc/yum.repose.d
+
+repos.d] # vi vLearn.repo
+
+[vLearn]
+
+name = Redhat Packages
+baseurl = file:///venkat
+gpgcheck = 0
+or 
+gpgcheck =1
+key = xxxxx
+enable = 1
+:wq!
+
+
+# yum clean all ---> It will clear the cache information.
+
+# yum update ---> to update repository
+
+# yum list ---> list out packages
+
+# yum install vsftpd* ---> to install a package.
+
+# yum install p1 p2 p3 ---> to install multiple packages.
+
+# yum info vsftpd*
+
+# yum installed ---> installed packages
+
+# yum avialiable ---> list out availaible packages
+
+# yum groupinstall grppkgname ---> to install grp packages.
+
+# yum update packagename ---> to update package( minor version change eg 2.3 to 2.5).
+
+# yum upgrade packagename ---> to upgrade package(major vesrion change eg : 2 -3)
+
+# yum remove packagename ---> uninstall a package.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

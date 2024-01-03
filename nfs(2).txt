@@ -1,0 +1,98 @@
+NFS
+===
+To share the data b/w diff systems.
+
+we can centralize the data.
+
+Advantages
+----------
+
+
+1) cenrtalization of data
+2) reduce stoarage cost.
+3) All clients can access single exported resource at a time.
+
+
+port No: 2049
+
+Package : nfs-utils
+
+deaemons : 
+1) nfsd
+2) startd
+3) lcokd
+4) mountd
+5) nfslogd
+6) quotad
+
+client side daemons
+1)startd
+2)lockd
+
+portmap: it is a daemon to establish connection b/w 2 systems.
+
+Note: now a days portmap replaced with rpcbind(remote procedure call)(from RHEL 4)
+
+
+port no for rpc bind : 111
+
+
+NFS versions
+------------
+nfs2
+nfs3
+nfs4
+
+config files
+------------
+/etc/exports
+/etc/sysconfig/nfs`
+/var/lib/nfs/etab
+/var/lib/nfs/rmtab
+
+
+
+
+
+
+
+# vi /etc/exports
+
+
+/data 192.168.10.5(rw,sync)
+
+:wq!
+
+# exportfs -avr ---> to update the information ot kernel
+
+
+
+client side
+-----------
+# showmount -e 192.168.10.5 ----> it will list out all the exported resources.
+                          -----------------
+                                   |
+                             NFS server ip
+
+# mkdir /venkat
+
+# mount -t nfs 192.168.10.5:/data /venkat
+
+# cd /venkat
+
+venkat]# ll
+
+
+
+interview questions:
+--------------------
+
+1) port no
+2) nfs versions and diff
+3) nfs stale error.
+4) nfs hard mount and soft mount
+
+
+
+
+

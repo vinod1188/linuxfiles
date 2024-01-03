@@ -1,0 +1,71 @@
+AUTOFS
+======
+Advantages of AUTOFS
+
+1) only client side operations.
+2) no need to mount and unmount manually.
+3) High secured, when compare with nfs.
+
+Package : autofs
+daemon  : automountd
+f/s type: autofs
+
+config file
+-----------
+
+# vi /etc/sysconfig/autofs ---> this is the main config file
+
+# vi /etc/auto.master --------> master file
+
+* in master file which type of mapping we are using, we will define here.
+
+Types of maps:
+
+1) Direct map   ---> absloute path
+2) Indirect map ---> relative path
+3) Special map
+
+Direct mapping
+--------------
+# vi /etc/auto.msater
+
+/-    /etc/auto.direct   --timeout 10
+:wq!
+
+# vi /etc/auto.direct
+
+/mnt/lin    -rw     192.168.10.5:/data
+
+:wq!
+
+# cd /mnt/lin
+(list out the information availiable in /data)
+
+lin]# ll
+
+
+Indirect mapping
+----------------
+
+# vi /etc/auto.msater
+
+/mnt    /etc/auto.indirect   --timeout 10
+
+:wq!
+
+# vi /etc/auto.indirect
+
+lin    -rw     192.168.10.5:/data
+
+:wq!
+
+# cd /mnt/lin
+
+
+lin]# ll(list out the information availiable in /data)
+
+
+
+
+
+

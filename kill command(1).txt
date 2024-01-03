@@ -1,0 +1,20 @@
+Signals
+
+linux total 64 signals
+
+]#kill -l -- it will show all shosignals
+
+1 --- Reloading the process
+9 --- Kill the process
+15 --- Terminating the process
+20 --- Stop the processes
+
+How to kill the process
+
+]#kill -9 pid
+
+]#pkill -9 pid
+
+
+
+

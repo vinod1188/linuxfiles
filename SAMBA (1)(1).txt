@@ -1,0 +1,96 @@
+SAMBA
+=====
+
+* SAMBA IS USED TO SHARE THE DATA ACCROSS DIFF OS(LIKE WINDOWS-UNIX)
+
+Packages :
+
+samba
+samba-common
+samba-client
+
+
+daemons
+-------
+smbd ---> to share the data with in the unix os
+nmbd ---> accross the diff os(win - unix)
+
+port No :
+---------
+137 ---> netbios-named server
+138 ---> data transfer
+139 ---> session service
+
+
+config file
+-----------
+
+# /etc/samba/smb.conf ---> main config file.
+
+
+# mkdir /vLearn ( shared dir)
+
+# chmod 777 /vLearn
+
+create user
+-----------
+# useradd srinu
+
+# smbpasswd -a srinu ---> add user in to sambausers list
+
+# smbpasswd -x srinu ---> to remove user.
+
+# vi /etc/smb/smbusers ---> samba users information.
+
+# vi /etc/smb/smbpasswd ---> passwd information.
+
+# pbdedit -L ---> to list out the samba users.
+
+
+
+Configuring samba service(server side)
+--------------------------------------
+
+# vi /etc/samba/smb.conf
+
+ last 7 lines copy and paste
+
+[vLearn]
+comment     = samba
+path        = /vLearn
+public      = no ( not allow all users)
+valid users = srinu
+writable    = yes
+printable   = yes
+hostallow   = 192.168.10.5 ( only from this ip srinu can access samba server)
+
+:wq!
+
+
+# testparm ---> it will check the parameters syntax errors.
+
+
+# service nmbd restart
+
+# service smbd restart
+
+
+Client side configuration
+-------------------------
+
+1) Right click on mycomputer
+               |
+2) select map networkdrive
+               |
+3)192.168.10.5 /vLearn
+
+               |
+4) username 
+   passwd
+
+
+2 windows will be opened.
+
+one is linux machine and the other one is win machine.
+
+

@@ -1,0 +1,43 @@
+Link File:
+==========
+
+1) soft link
+2) Hard link
+
+
+
+soft link                     Hard link
+==========                   ============
+
+1) we can create link b/w   1) files
+files,dir,partitons
+2)size is diff for          2) same
+original and link file
+3) if we will remove        3) can
+original file we can't 
+access through link file
+4) inode no will be diff    4) same
+for both original and 
+link files
+
+# ln f1 f2 -----------> to create hard link
+
+# ln -s dir1 dir2-----> to create soft link
+
+# rm -rf dir2 --------> to remove link
+
+
+
+
+
+Re direction
+============ 
+* redirecting is nothing but diverting the output from original location to
+some other location.
+
+
+# ll > f1   ------> to redirect
+
+# ls -la >> f2 ---> to redirect & append
+
+

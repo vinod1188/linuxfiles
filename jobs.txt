@@ -1,0 +1,118 @@
+Job Scheduling
+==============
+ Job scheduling is a feature that allowed a user to schedule a command for execution at a specified time in future.
+
+1) at -----  for single time scheduling.
+2) cron----- for repeated job scheduling.
+
+
+
+daemon
+======
+at----> atd
+cron--> crond
+
+eg : backup, trimming logfiles, remove unwanted files.
+
+SE LINUX REQUIREMENT FOR CRON
+=============================
+# setsebool -p cron_disable_trans=1
+
+# getsebool cron_disable_trans
+  cron_disable_trans=on
+
+# service atd status
+# service atd start
+# service atd stop
+# service atd restart
+# service crond status
+# service crond start
+# service crond stop
+# service crond restart
+
+
+Config files
+============
+
+at ---> /etc/at.allow(high priority)
+        /etc/at.deny(default)
+cron ---> /etc/cron.allow(high priority)
+          /etc/cron.deny(default)
+
+
+All submitted jobs are stored at
+================================
+
+at ---> /var/spool/at(dir)
+cron --->/var/spool/cron(dir)
+
+Scheduling at job:
+==================
+# at 11PM
+at> touch file1
+clt+d
+
+# at 23:00
+# at 5:30 tomorrow
+# at now + 1 hr
+# at now + 5days
+# at 3:00PM 31/01/2016
+
+
+how to list out scheduled jobs
+==============================
+
+# atq
+# at -l
+
+How to remove at job
+====================
+
+# atrm <jobid>
+# at -d <jobid>
+
+
+Crontab format: 
+==============
+
+min of hours| hours of the day | day of the month | month of the year| day of week| task
+
+    (0-59)       (0-23)                (1-31)            (1-12) 	(0-7)      command
+
+      30           23                     04               04    	1       touch f1
+       0            *                      *               2    	*       touch f1
+      30           23                      *               *    	*       touch f1
+	30	    */2			   23		   09		0      
+	30	    23			    *		    *		*	  
+
+
+commands
+========
+# crontab -e ---> create/edit
+# crontab -l ---> list out
+# crontab -u ---> user
+# crontab -r ---> remove
+
+
+
+# crontab -e -u user1
+
+       
+30           23                     28               1                 4       touch f1
+  
+save and exit
+
+# crontab -e
+
+# crontab -l
+
+# crontab -l -u user1
+
+
+
+        
+
+
+
+
+

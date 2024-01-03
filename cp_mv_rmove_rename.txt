@@ -1,0 +1,65 @@
+Absolute path
+=============
+It is nothing but complete path. always it will start with '/'.
+
+Relative path
+=============
+It is nothing but continution path of pwd. it will never start with '/'.
+
+
+# cp <source file path> <destination path>
+
+# cp /vLearn/vmware/f1  /vLearn/UNIX
+     -----------------
+            |
+       ABSOLUTE PATH
+
+# cp f1 /vLearn/UNIX
+     --
+      |
+  RELATIVE PATH
+
+
+
+# cp -r /vLearn/vmware/dir1  /vLearn/UNIX
+
+# cp -r dir1  /vLearn/UNIX
+
+
+# mv /vLearn/vmware/f2  /vLearn/UNIX
+
+
+# mv f2  /vLearn/UNIX
+
+# mv -r /vLearn/vmware/dir1  /vLearn/UNIX
+
+# mv -r dir1  /vLearn/UNIX
+
+# mv f3 file3
+
+# mv /vLEarn/vmware/f3 /vLearn/vmware/file3
+
+# mv /vLearn/vmware/f4 /vLearn/UNIX/file4
+
+# rm file1
+
+# rm -rf dir1
+
+# rmdir dir1/dir
+
+
+
+
+
+# rm -rf 
+
+
+
+
+
+
+
+
+
+
+

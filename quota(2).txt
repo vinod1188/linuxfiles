@@ -1,0 +1,106 @@
+Quotas
+======
+
+* Quota is nothing is but assiging space limitation for, user or group on a file systerm.
+eg: ftp users,nfs users,http users etc.,
+
+
+Types of Quotas:
+================
+
+1) soft quota: We will assign limit as soft quota, if that     limit exceeded it will generate logs.
+
+2) hard quota: It will not generate any log files.
+
+Quotas implementation on Linux.
+===============================
+
+1) Block wise---> disk quota ----> size
+2) Index wise---> file quota ----> Inode
+
+Quota Profile
+=============
+
+Name ------ usrquota,grpquota
+
+Package ------> # rpm -qa | grep -i quota*
+
+quota-3.17-10.el6.i686.rpm
+
+Commands:
+=========
+1) quotaon
+2) quotaoff
+3) quotacheck
+4) edquota
+5) repquota
+
+
+
+Grace period:
+=============
+We can implement  grace period on both block wise and Index wise.
+
+If a user soft quota limit exceeded then grace period will be enabled.( grace period 7days)
+
+with in the 7 days we need to use the remainig spacee or we need to reduce soft limit.
+
+other wise if space is availible also, we can not use the space.
+
+
+# fdisk /dev/sda
+
+  n: 
+    +4G
+  w:
+# partprobe /dev/sda5
+# mkfs.ext3 /dev/sda5
+# mount -o usrquota,grpquota /dev/sda5 /apps
+# vi /etc/fstab
+
+/dev/sda5   /apps   ext3   defaults,usrquota,grpquota   0   0
+:wq!
+
+# mount -o remount,usrquota,grpquota /dev/sda5
+
+# quotacheck -cugm /apps
+
+ - create
+ - user
+ - group
+ - remount
+
+# cd /apps
+# ll
+aquota.grp aquota.usr
+
+# quotaon -augv
+# quotaoff -augv
+# edquota cnu
+f/s           block soft hard inode soft hard
+              --------------- ---------------
+/dev/sda5       0    50    55   0     0    0
+/dev/sda5       0     0    55   0     0    0
+/dev/sda5       0     0     0   0    75  100
+:wq!
+
+# repquota -a -------> it will display all users quota limit
+
+# repquota -u cnu----> single user quota limit display.
+
+# edquota -T cnu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

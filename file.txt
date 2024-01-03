@@ -1,0 +1,112 @@
+How to create a file
+====================
+1) touch
+2) cat
+3) dd
+4) vi or vim
+
+
+1) touch : we can create an empty file( 0 size)
+
+we can create multiple empty files at a time.
+
+we can change the time stamp of an existing file with out disturbing data.
+
+
+
+# touch file1
+
+# touch f1 f2 f3
+
+# touch f{1..99}
+
+# touch -t <date and time>  file1
+
+# touch file1
+
+
+2) cat :
+
+a) we can create file with data.
+b) we can append data to an existing file.
+c) we can see the existing file data.
+
+
+# cat > file1
+
+hi
+hello
+how r u?
+ctl+d ---> to save and exit from file.
+
+# cat >> file1
+Have a great day
+ctl+d ---> save and exit
+
+# cat file1
+hi
+hellow
+how r u?
+Have a great day
+
+3) dd :
+
+* to create a sized file.
+
+# dd if=/dev/zero of=/file1 bs=1024k count=10
+                            --------  ------
+                                |        |
+
+                             block size  No of blocks
+
+
+How To Create a Directory
+=========================
+
+# mkdir dir1 --------- to create single dir
+
+# mkdir d1 d2 d3------- to create multiple dir
+
+# mkdir d{1..99}-------- to create multiple dir like d1 to d99
+
+# mkdir -p /E/ENT/MOVIES---- to create parent dir
+
+# mkdir -p /E/ENT/MOVIES/{T,H,E}---- to create nested dir
+
+# cd /e/ent/movies/t
+ 
+ t] # pwd
+
+/e/ent/movies/t
+
+# cd .. ----------- to exit from 1 dir
+
+# cd ../..--------- to exit from 2 dir's
+
+# cd /e/ent------- to enter in to ent dir
+
+# cd ------------- to go to home dir
+
+# cd /------------ to go to parent dir(/)
+
+# ls    -----------> list out files and directories
+# ls -l -----------> list out files and directories with information
+# ll    -----------> same like ls -l
+# ls -a -----------> hidden files and directories
+# ls -la-----------> hidden files and directories with details
+# ls -i -----------> with inode no.
+# ls -ltr ---------> reverse sort with time stamp.
+
+
+# touch .f1
+# cat > .file1
+hi
+hellow
+how r u?
+ctl+d
+
+# dd if=/dev/zero of=/.file1 bs=1024k count=10
+
+
+
+

@@ -1,0 +1,47 @@
+Find
+=====
+It is used to find out or locate the complete path of a file or directory.
+
+find oprions
+============
+
+1) -name
+2) -type
+3) -size
+4) -inum
+5) -user
+6) -group
+7) -perm
+
+
+# find / -name f1
+
+# find /root -type d -name dir1
+
+# find /root -size 50K
+
+# find /root -size -50K
+
+# find /root -size +50K
+
+# find /root -size +50K -size -100K
+
+# find /root -inum 320984
+
+# find /root -user vleaern
+
+# find /root -group vlearn
+
+# find / -perm 1777
+
+Wild cards.
+-----------
+ *
+ ? 
+ ??
+ ???
+ [ ]
+ ^
+ $
+
+ 

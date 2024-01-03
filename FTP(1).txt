@@ -1,0 +1,91 @@
+FTP: It is used to transfer(upload/download) the files from one machine to another.
+==== we can't transfer the directories.
+
+Note : by using scp we can't transfer the large size files, by using ftp we transfer large size of files.
+
+package : vsftpd*
+
+daemom  : vsftpd
+
+port no's 	: 20 ---> transfer data
+         	: 21 ---> Connectivity
+
+
+Config Files:
+-------------
+# vi /etc/sysconfig/vsftpd.conf ---> Main config file
+
+# vi /etc/vsftpd/ftpusers ---------> users in this file will be denied.
+
+# vi /etc/vsftpd/user_list --------> this file will depend on main config file parameter
+( userlist_deny)
+
+# vi /etc/sysconfig/vsftpd.conf
+
+ananymous_enable = YES
+
+local_enable     = YES
+
+write_enable     = YES
+
+local_umask      = 0022
+
+anon_upload_enable = NO(default)
+
+xfer_enable      = YES
+
+userlist_deny    = YES
+
+:wq!
+
+# ftp 192.168.10.5 ---> to connect ftp server
+
+ftp> ls ---> list out files and directories of ftp machine
+
+     pwd ---> present working directory of ftp   
+     
+     cd .. ---> exit one dir in ftp server.
+
+     !ls ---> list out local machine files and directories
+     !pwd
+     !cd ..
+
+# put file1 ---> to upload
+
+
+# mput f1 f2 f3 ---> to upload multiple files.
+
+
+# get aaa ---> to down load
+
+
+# mget a1 a2 a3 ---> to down load multiple files.
+
+
+
+
+
+ftp log location
+================
+
+/var/log/xferlog
+
+
+Types of ftp :
+--------------
+active ftp : it will transfer the data through fixed port no 20 only.( less sucured)
+
+passive ftp(default) : it will keep changing the port no randamly.(High secured)
+
+Types of users :
+----------------
+
+1) normal user : it will ask for the username and passwd while connecting to ftp server.
+
+
+2) ananymous user : it will not ask for the password.
+
+
+
+
+

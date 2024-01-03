@@ -1,0 +1,49 @@
+Copy,move,rename and removing files and directories.
+====================================================
+
+
+# cd /vLearn/vmware
+
+# pwd
+  /vLearn/vmware
+
+
+* Absolute Relative Path : It is nothing but complete path, always it will start with '/'
+
+* Relative Path : continution path of PWD. It will never start with '/'
+
+
+# cp < source file path> <destination path>
+
+# cp /vLearn/vmware/f1 /vLearn/UNIX -------- to copy f1 from vmware to UNIX
+     ------------------
+            |
+      absolute path 
+
+# cp f1 /vLearn/UNIX
+
+# mv /vLearn/vmware/f2 /vLearn/UNIX
+
+# mv f2 /vLearn/UNIX
+
+# mv -r /vLearn/vmware/dir1 /vLearn/UNIX
+     ---
+      |
+  Recurseivly
+
+# mv /vLearn/vmware/f3 /vLearn/vmware/file3
+
+# rm f1
+
+# rm -f f1
+
+# rm -rf dir1
+
+# rmdir dir2
+
+# rm -rf f3
+
+
+
+
+

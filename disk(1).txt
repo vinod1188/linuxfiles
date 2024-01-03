@@ -1,0 +1,287 @@
+Disk Management/Partition Management/File system
+================================================
+
+* disk management is nothing but creating/modifying/deleting partitions.
+
+1) why we need to create partitions?
+
+a) to encapsulate the data.
+b) to increase performance.
+c) to manage storage in an efficient mannaer.
+
+2) how many partitions we can create?
+
+ ide ---- pata------16-----/dev/hda
+ scsi-----sata------64-----/dev/sda
+
+
+3) How to identify the HDD?
+
+# fdisk -l (up to RHEL 5)
+
+      or 
+# parted -l( from RHEL 6)
+
+
+/dev/sda ----80G -------- -------
+/dev/hda
+
+
+
+# fdisk /dev/sda
+   m : help
+   p : print partitions
+   n : create new partition
+   (1-500)
+      +500M 
+   d : delete partition
+   l : list out hex codes
+   t : to toggle the hex code
+   a : bootable partition
+   w : save and quit
+   q : quit with out saving.
+
+
+linux - 83
+swap  - 82  
+lvm   - 8e
+Raid  - fd
+
+
+# fdisk -l
+/dev/sda1
+
+/dev/sda2
+/dev/sda3
+/dev/sda4
+/dev/sda5
+
+# cat /proc/partitions
+
+# partprobe /dev/sda5 (rhel 5)
+
+# kpartx -a /dev/sda5 (rhel 6)
+
+# partx -a /dev/sda
+
+# cat /proc/partitions
+
+
+ file system        file system type
+=============       ================ 
+/dev/sda5              ext2
+                       ext3
+                       ext4
+		        xfs
+
+
+# mkfs -t ext3 /dev/sda5
+       or
+# mkfs.ext3 /dev/sda5
+
+# mkfs /dev/sda5
+
+# vi /etc/mke2fs.conf
+
+
+
+Mounting
+========
+It is nothing but creating link b/w directory and partition.
+
+Types of Mounting:
+==================
+
+1) temp mount------------>(/etc/mtab)
+2) perminent mount-------> (/etc/fstab)
+
+# mkdir /apps
+
+# mount -t ext3 /dev/sda5 /apps
+
+# mount.ext3 /dev/sda5 /apps
+
+# mount /dev/sda5 /apps
+
+
+# mount ----> to check the mounted partitions information.
+
+# cat /etc/mstab
+
+
+# vi /etc/fstab
+
+
+devicename  mount point  f/s type  mount options dump  check sequance
+----------  -----------  --------  ------------- ----  --------------
+/dev/sda11      /apps      etx3     defaults       0         0 
+                                                   1         1
+                                                             2
+                                                             2
+                                                             3
+                                                             1
+Umount
+
+======
+
+# umount /dev/sda5
+
+# umount /apps
+
+
+features          ext2    ext3        ext4     
+========          ====    ====        ====
+journaling         no     y(on)     y(on/off)
+
+extents            no      no           y
+
+dr_index           no      no           y
+
+uninit_bg          no      no           y
+
+
+
+ext2 -----> ext3  convert
+ext2+journ=ext3
+
+ext3----> ext3+extents+dr_index+uninit_bg =ext4
+
+
+# tune2fs -j /dev/sda5(ext2) -----> convert from ext2 to ext3 f/s type
+
+# fstype ext2 /dev/sda5 ----> to check journaling feature added or not
+
+# blkid /dev/sda5 ----------> to check journaling feature added or not
+ext2
+
+# tune2fs -o extents,dr_index,uninit_bg /dev/sda5 -----> convert from ext3 to ext4
+
+# mkfs -m 10 -t ext3 /dev/sda5 ----------> to change min free space while formatting.
+
+# tune2fs -m 5 /dev/sda5 ----------------> to change min free space for an existing partition.
+
+# df -----> disk free space.
+
+  df -h
+  df -hT
+  df -i
+  df -k
+
+# du -----> disk used space.
+
+# e2lable /dev/sda6 /app ------> to create lable name.
+
+
+* if any inconsistancy occured in a f/s, we need to run fsck command.
+
+Note: before running fsck we need to unmount the f/s.
+=====
+
+# fsck -y /dev/sda5
+
+fsck phases
+===========
+1) it will check for inodes,blocks and sizes.
+
+2)                    directory path
+
+3)                    directories connectivity
+
+4)                    reference count  
+
+5)                    cylindrical group summary information. 
+
+
+
+lost+found -----> it will contain unreference inodes information.
+
+
+SWAP:
+=====
+ It is nothing but virtual memory to reduce the burden on RAM and to speedup/increase the system performance. we can create swap from Hard disk.
+
+We can create swap in 2 methods
+===============================
+
+1) swap file.( Temporary purpose)---> Migrations
+2) swap file system.(Permenent purpose)--->
+
+ * In general swap size is double the RAM.
+ * file system type of swap is swapfs
+                               ------
+
+1) # dd if=/dev/zero of=/swapfile bs=1024k count=4096
+                        ---------   
+                            
+   # mkswap /swapfile -----> to convert to swap file
+   # swapon /swapfile -----> to enable swap file.
+   # swapoff /swapfile ----> to disable swap file.
+   # swapon -S ------------> list out all swap files and files systems.
+   # swapon /swapfile
+
+
+2) # fdisk /dev/sda
+        n: +4G
+        t:
+          82
+        w: save and quot
+
+   # partprobe /dev/sda5
+   
+   # mkswap /dev/sda5
+   
+   # swapon /dev/sda5
+   
+   # swapoff /dev/sda5
+
+   # swapon -S	
+
+
+   Page In(swap in) : It is nothing but processes coming from RAM to SWAP
+   ---------
+   Page Out(swap out): It is nothing but processes going from SWAP to RAM.
+   --------- 
+
+ # vi /etc/fstab
+
+ /dev/sda5   swap   swapfs   defaults 0 0
+
+ # swapoff -a
+
+ # swapon -a
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+

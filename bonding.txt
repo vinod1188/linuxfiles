@@ -1,0 +1,50 @@
+[root@nfs-server ~]# cat /etc/sysconfig/network-scripts/ifcfg-bond0
+DEVICE=bond0
+ONBOOT=yes
+BOOTPROTO=none
+IPADDR=192.168.0.103
+NETMASK=255.255.255.0
+MASTER=yes
+BONDING_OPTS="mode0 miimon=100"
+[root@nfs-server ~]# 
+[root@nfs-server ~]# 
+[root@nfs-server ~]# 
+[root@nfs-server ~]# cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp0s3
+UUID=b4c4c1b8-2e4a-43b0-aaca-54a7d09db838
+DEVICE=enp0s3
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+[root@nfs-server ~]# 
+[root@nfs-server ~]# 
+[root@nfs-server ~]# cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp0s8
+UUID=cc227dd4-aa99-4fa1-81b2-e1d57c1e894d
+DEVICE=enp0s8
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+

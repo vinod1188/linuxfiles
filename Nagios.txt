@@ -1,0 +1,27 @@
+Step-by step installations on CentOS
+
+Step 1: Install Required Dependencies
+
+yum install -y httpd httpd-tools php gcc glibc glibc-common gd gd-devel make net-snmp
+
+Step 2: Create Nagios User and Group
+
+useradd nagios Groupadd nagcmd
+
+Usermod -G nagcmd Nagios Usermod -G nagcmd apache
+
+Step 3: Download Nagios Core 4.3.4 and Nagios Plugin 2.2.1
+
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.3.4.tar.gz 
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
+
+Step 4: Extract download tar file and go to the Nagios folder & execute the following command
+
+/configure && make all && make install && make install-init && make install-commandmode && make install-config && make install-webconf
+
+
+
+https://www.tecmint.com/install-nagios-in-linux/#Step_6_Customizing_Nagios_Configuration
+
+
+

@@ -1,0 +1,70 @@
+KERNEL PARAMETERS
+=================
+* KERNEL IS NOTHING BUT HEART OF OS
+
+ and it will perform some resource management operations.
+
+1) Memory management
+2) Device 
+3) Process
+4) Processor
+5) I/O 
+
+* It will interact with the hardware and prode the output.
+* kernel is nothing but a module.
+* if we want we load and unload this module.
+
+
+How to know the kernel information
+==================================
+
+
+# uname -a ---> all information about kernel
+# uname -r ---> kernel release version
+# uname -s ---> kernel name
+# uname -v ---> kernel version
+# uname -m ---> machine name
+# uname -i ---> arch
+     or
+# arch
+   or 
+# getconfig_longbit
+
+
+kernel location
+===============
+ /boot ---> (/boot/grub/grub.conf)
+
+ /proc ---> current running processes information and hw information and kernel info
+ 
+ /usr/src ---> kernel source code.
+
+ /lib/modules ---> kernel modules information.
+
+
+How to update kernel
+====================
+
+# yum update kernel*
+
+ Tuning the kernel parameters.
+==============================
+
+# sysctl -a ----> it will list out all kernel parameters.
+
+ net.ipv4_ip_forward(one of the kernel parameters)
+
+# echo 1 >> /proc/sys/net/ipv4/ip_forward
+
+# systl -w net.ipv4_ip_forward=1
+
+# systl -p
+
+# vi /etc/sysctl.conf
+
+
+ net.ipv4_ip_forward = 1
+:wq!
+
+# sysctl -p
+

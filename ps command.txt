@@ -1,0 +1,81 @@
+system performance
+
+ps 
+top
+SAR
+vmstat
+iostat
+
+process: It is nothimg but a group of signals
+
+process is a part of appl or may be a programe
+
+process consist of diff stages
+
+1) Running: process being exicuited in memory
+
+2) Sleeping : Perocess is suspended for while(swap memory)
+
+3) Stop : Exicution has benn completyed by memory or manually stoped
+
+4) Wait : Waiting for exicution in que(Swap memory)
+
+5) Zombie:
+
+
+]#ps  --- it will show running process present terminal
+
+]#ps -a  --- it will display all running process in system
+
+]#ps -au <user name> -- it will display all runnning processes under user
+
+]#ps -u <user name> --- only pirticuler user and present terminal
+
+]#ps -aux <user name>--- if user attached with another terminal
+
+]#ps -G <group name> -- running processes under group
+
+]#ps -ef -- it will show all running processes in system
+
+]#ps -elFL -- it will display no of processes each core running
+
+]#ps -aux | sort -nr -k3 | head  -- without using top command to know cpu utilization
+
+			-k3 -- cpu utilization
+			-k4 -- memory utilization
+
+or
+
+]#ps -ef | sort -nr -k3 | head
+
+how to indentify zombie process?
+
+]#ps - aux | grep -i "default"
+
+or 
+
+]#ps -ef | grep -i "Z"
+
+]#ps -l -- it will show niece values
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

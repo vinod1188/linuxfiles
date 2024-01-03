@@ -1,0 +1,183 @@
+LVM(Logical Volume Manager)
+===========================
+
+ To virtualizing the disks. to manage stoarage in an appropriate manner.
+
+Advantages:
+===========
+
+1) we can create more no of partitions when compare with normal partitions.
+
+Note: in lvm1 we can create 2 to the power 8 and in lvm2 2 to the power of 32 partitions.
+
+2) we can manage storage in an efficient manner.
+
+3) we can resize the partitions.
+
+Note:a) while extending the partitions down time not required( no need to unmount)
+ 
+     b) while reducing the partitions down not required (need to unmount)
+
+LVM PROCESS
+===========
+
+1. Change the hex code 83 to 8e
+2. convert os partitions to physical volumes(pv's).
+3. create volume group by adding pv's.
+Note: while creating vg PE will be created( default size=4M), we can change size from 1-1024M
+4. after creating vg we can create lv's with diff sizes.
+Note: while creating lv LE will be created.(LE size will depend on lv size and pe size)
+
+LE = LV/PE
+5. FORMAT THE LV.
+6. mount the lv.
+7. and based on requirement we can resize the lv's.
+
+Note:a) while extending the partitions down time not required( no need to unmount)
+ 
+     b) while reducing the partitions down not required (need to unmount)
+
+# fdisk /dev/sda
+   t: partiotion no
+      8e
+   w
+
+# pvcreate /dev/sda5 /dev/sda6 /dev/sda7 ----> to convert from os-pvs
+# pvs ---------------------------------------> it will display all pvs information
+# pvdisplay /dev/sda5 -----------------------> it will display perticular pv information.
+
+
+# vgcreate vg1 /dev/sda5 /dev/sda6 /dev/sda7
+# vgs
+# vgdisplay vg1
+
+
+# lvcreate -L +10M -n lv1 vg1
+# lvs
+# lvdisplay /dev/vg1/lv1
+
+
+
+# mkfs -t ext3 /dev/vg1/lv1
+
+# mkdir /apps
+
+# mount /dev/vg1/lv1 /apps
+
+# lvextend -L +20M /dev/vg1/lv1 vg1
+
+# resize2fs /dev/vg1/lv1
+
+
+How reduce lv
+=============
+
+1) check the existing size.
+2) unmount lv1
+3) run fsck
+4) reduce the f/s 
+5) reduce the lv
+
+
+# df -hT
+# umount /dev/vg1/lv1
+# fsck -y /dev/vg1/lv1
+# resize2fs /dev/vg1/lv1 4M
+# lvreduce -L -6M /dev/vg1/lv1
+# df -hT
+
+How to create vg with different PE size.
+========================================
+# vgcreate vg1 /dev/sda5 /dev/sda6 /dev/sda7
+# vgcreate -s 8 vg2 /dev/sda8 /dev/sda9 /dev/sda10 ------> to create vg with PE size 8M
+
+# lvcreate -L +200M -n lv1 vg1
+# lvcreate -l 50 -n lv3 vg2 -------> to create lv with no of LE's( lv=le*pe)(lv=50*8)=400M
+
+How to replace failed pv with another pv
+========================================
+# fdisk /dev/sda
+   n: +400M
+   t: 8e
+   w:
+
+# partx -a /dev/sda
+
+# pvcreate /dev/sda8-----> create new pv with equal size of failed pv
+
+# vgextend vg2 /dev/sda8-----> add new pv to exisiting vg
+
+# pvmove /dev/sda6 /dev/sda8 ----> replace new pv with failed one.
+
+# vgreduce vg2 /dev/sda6 -------> reduce vg.
+
+
+How to remove unused pv
+=======================
+
+# pvremove -v /dev/sda8(un used pv) ---> to remove pv from vg
+
+# vgreduce vg2 /dev/sda8 -----> to reduce vg.
+
+
+vg merging
+==========
+
+1) we need to inactive the vg's
+
+2) merge the vg's
+
+
+# vgchange -an vg1 --->Inactive vg
+
+# vgchange -an vg2 --->Inactive vg
+
+# vgmerge -v vg1 vg2 --->merge vg( vg1 will remain)
+
+# vgchange -ay vg1 --->Active vg
+
+vg split
+========
+
+# vgchange -an vg1 --->Inactive vg
+
+# vgsplit vg1 vg2 /dev/sda5 /dev/sda6 /dev/sda7 ----> split vg1 as vg1 and vg2
+
+# vgchange -ay vg1 --->Active vg 
+
+# vgchange -ay vg2 --->Active vg
+
+
+Backup of vg
+============
+
+# vgcfgbackup vg1 ------> to take backup of vg1
+
+/etc/lvm/backup -----> backup location
+
+/etc/lvm/lvm.conf ----> lvm main config
+
+/etc/lvm/archeive ----> lvm meta data location
+
+/etc/lvm/cache -------> lvm cache
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

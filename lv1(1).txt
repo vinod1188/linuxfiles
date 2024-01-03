@@ -1,0 +1,180 @@
+OS -PV CONVERSION
+=================
+
+
+
+# pvcreate /dev/sda5 /dev/sda6 /dev/sda7
+
+# pvs
+
+# pvdisplay /dev/sda5
+
+
+How to crete a VG
+=================
+
+# vgcreate vg1 /dev/sda5 /dev/sda6 /dev/sda7
+
+# vgs
+
+# vgdisplay vg1
+
+
+How to create logical volume
+============================
+
+
+# lvcreate -L +300M -n lv1 vg1
+
+# lvs
+
+# lvdisplay /dev/vg1/lv1
+
+
+Formatting a lv
+===============
+
+# mkfs -t ext3 /dev/vg1/lv1
+
+# mkfs.ext3 /dev/vg1/lv1
+
+
+Mounting a lv
+=============
+
+# mkdir /apps
+
+# mount -t ext3 /dev/vg1/lv1 /apps
+
+# mount.ext3 /dev/vg1/lv1 /apps
+
+# mount /dev/vg1/lv1 /apps
+
+perminent mount
+===============
+
+#vi /etc/fstab
+
+/dev/vg1/lv1    /apps   ext3   defaults 0 0
+
+
+How to increase lv
+==================
+
+# df -h /dev/vg1/lv1 
+
+# lvextend -L +200M /dev/vg1/lv1
+
+# resize2fs /dev/vg1/lv1
+
+# df -h /dev/vg1/lv1
+
+
+
+How to extend vg
+================
+
+# vgextend vg1 /dev/sda8
+
+
+How to reduce lv
+================
+
+# df -h /dev/vg1/lv1
+
+# unmount /dev/vg1/lv1
+
+# e2fsck -y /dev/vg1/lv1
+
+# resize2fs /dev/vg1/lv1 600M
+
+# lvreduce -L -400M /dev/vg1/lv1
+
+# df -h /dev/vg1/lv1
+
+
+How to change PE size while creating a vg
+=========================================
+
+# vgcreate -s 8 vg2 /dev/sda9
+
+
+
+ LE=400/8=50(lv size/PE size)
+
+
+# lvcreate -l 50 -n lv2 vg2
+
+
+How to replace failed disk
+==========================
+
+# pvcreate /dev/sda8
+
+# vgextend vg2 /dev/sda8
+
+# pvmove /dev/sda6 /dev/sda8
+
+# vgreduce vg2 /dev/sda6
+
+
+
+How to Remove Unused PV from vg
+===============================
+
+# pvremove -v /dev/sda6
+
+# vgreduce vg1 /dev/sda6
+
+vg merging
+==========
+
+# vgchange -a -n vg1
+
+# vgchange -a -n vg2
+
+# vgmerge -v vg1 vg2
+
+# vgcahnge -a -y vg1
+
+vg splitting
+============
+
+# vgchange -a -n vg1
+
+# vgsplit vg1 vg2 /dev/sda7 /dev/sda8 /dev/sda9
+
+# vgchange -a -y vg1
+
+# vgchange -a -y vg2
+
+How to take vg backup
+=====================
+
+# vgcfgbackup vg1
+
+/etc/lvm/backup
+
+/etc/lvm/lvm.conf
+
+/etc/lvm/archive
+
+/etc/lvm/cache
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

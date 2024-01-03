@@ -1,0 +1,59 @@
+
+Process priority niece value
+
+The range of process is -20 to 19 The lower no will have higher priority
+
+Note: default niece value zero
+
+Top command
+============
+the top command in linux displays the running processe on the system. It uses extensively
+for monitoring the load average. it displays memory usage of both physical(RAM) and swap memory
+
+Load average 0.0 0.02 0.05
+
+0.0 --- Fisrt minut load average
+0.02 --- 5Th minut load average
+0.05 -- 15th min load average
+
+After every 5th min it will update
+
+1 cpu = 0.7 base load
+quad core = 4*0.7= 2.8 max load ave
+
+Top options
+h- help
+q -- quit
+O-- to add fields
+B-- Bold important vlues
+s or d - delay default 3 sec
+l -- it will hide first line
+t-- it will hide cpu and tsak lines
+m-- it will hide memory lines i.e last two lines
+R -- reverse sort
+C -- display command full path
+i-- display only idle tasks
+z -- color display
+Z-- to change colors
+u-- perticuler user related processes
+n-- no of tasks display
+k -- to kill process
+r -- reniece 
+M -- sort by memory usage
+P -- sort by cpu usage
+T -- sort cumulative time
+
+
+]#top -d 1
+
+]#top -u root
+
+
+
+
+
+
+
+
+
+

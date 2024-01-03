@@ -1,0 +1,125 @@
+HTTP:
+=====
+* To host the webpages.
+
+Packages:
+---------
+
+httpd
+httpd-devil
+httpd-manula
+
+Deamon:
+-------
+httpd
+
+Config file :
+-------------
+# vi /etc/httpd/conf/httpd.conf ---> Main config file.
+
+/etc/httpd/.httpasswd ---> http users passwd information will be availiable.
+
+Port No: 80
+--------
+1) Name based hosting:
+
+# vi /etc/httpd/conf/httpd.conf
+
+last 7 lines copy and paste at the end of the file.
+
+<virtual host>     <192.168.10.5>
+
+Serveradmin     root@vLearn.com(fqdn)
+
+DocumentRoute : /var/www/html
+
+DirectoryIndex : my.html
+
+Server Name : vLearn.com
+
+access logs
+error logs
+:wq!
+
+# httpd -t ---> test parameters.
+
+
+# service httpd restart
+
+# vi /var/www/html/my.html
+
+hi
+hello
+how r u?
+
+:wq!
+
+
+Open Browser
+------------
+
+192.168.10.5 or vLearn.com
+
+
+     or
+
+# elinks --dump 192.168.10.5 ---> to check web page is hosting or not
+
+# curl 192.168.10.5 ---> to check web page is hosting or not
+
+2) Port based hosting:
+
+# vi /etc/httpd/conf/httpd.conf
+
+  go to line no 990 and uncomment
+
+copy last 7 lines and paste at the end of the file.
+
+
+<virtual host>     <192.168.10.5:8080>
+
+Serveradmin     root@vLearn.com(fqdn)
+
+DocumentRoute : /var/www/html
+
+DirectoryIndex : my.html
+
+Server Name : vLearn.com
+
+access logs
+error logs
+
+/Listen(search)
+
+listen 80
+listen 8080
+:wq!
+
+# httpd -t
+
+# service httpd restart
+
+# netstat -alutp | grep -i :80
+# netstat -alutp | grep -i :8080
+
+check with browser 
+192.168.10.5:8080
+vLearn.com:8080
+
+or
+
+use elinks
+
+elinks --dump 192.168.10.5:8080
+
+curl 192.168.10.5:8080
+
+
+
+
+
+
+
+
+
+ 
